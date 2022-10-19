@@ -1,0 +1,5 @@
+x      20  32  0  # set_io x  33
+y      16  32  0  # set_io y  31
+z      12  32  0  # set_io z  28
+w      10  32  0  # set_io w  27
+$iopadmap$logicc.r  30  32  0  # set_io r  38

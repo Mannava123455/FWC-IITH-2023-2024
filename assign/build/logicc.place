@@ -1,0 +1,13 @@
+Netlist_File: logicc.net Netlist_ID: SHA256:d589446402f2bd59c01cd5d55f789e28c377f6d82dd28e29b2cc1121be32373b
+Array size: 39 x 35 logic blocks
+
+#block name	x	y	subblk	block number
+#----------	--	--	------	------------
+r_LUT4_O.c_frag	14	25	0	#0
+$iopadmap$logicc.r	30	32	0	#1
+w		10	32	0	#2
+z		12	32	0	#3
+x		20	32	0	#4
+y		16	32	0	#5
+$false		3	1	0	#6
+$true		2	1	0	#7
