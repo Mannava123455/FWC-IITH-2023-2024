@@ -50,7 +50,7 @@ def line_dir_pt(m,A,k1,k2):
 #Circle parameters
 O =  np.array(([3,0]))  # centre of circle
 r = 3  # radius of circle.
-a=4
+a=4 # parabola parameter
 V=np.array(([0,0],[0,1]))
 u=np.array([-2,0])
 x=sym.Symbol('x')
