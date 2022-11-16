@@ -44,8 +44,11 @@ Q1=[0,1,2,4,8,16,32,3,5,64,9,6,17,10,18,128,12,33,65,20,256,34,24,36,7,129,66,51
 Q=[]
 
 
-K=int(input('Enter the no of bits to be transmited : '))
-N=int(input('Enter the no of bits to be coded N>K : '))
+K=int(input('Enter the no of bits to be transmited : ')) #message bits
+N=int(input('Enter the no of bits to be coded N>K : '))  #coded bits
+
+#from the above list modify the reliability pattern according to size of N
+
 for i in range(len(Q1)):
     if Q1[i]<N:
         Q.append(Q1[i])
@@ -59,18 +62,28 @@ n=int(np.log2(N))
 print("n={}".format(n))
 print()
 msg=[]
+
+#frozen bits for message signal
+
+
 for i in range(K):
     ele=int(input('Enter data bits of size K : '))
     msg.append(ele)
 u=[]
+
+
 for i in range(N):
     ele=0
     u.append(ele)
+
+
 for j in range(0,len(msg)):
     u[Q[N-K+j]] = msg[j]
 print("The frozen data of message is : {}".format(u))
 print()
 
+
+#recursive function for polar transform 
 
 
 def polar_transform(u_message):
@@ -86,8 +99,6 @@ def polar_transform(u_message):
 
 s1=polar_transform(u)
 print("The polar encoded signal is give as: {}".format(s1))
-
-
 
 
 
