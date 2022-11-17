@@ -1,7 +1,7 @@
-// Online C compiler to run C program online
-#include <stdio.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #include<math.h>
-int polar(int *msg);
 int main() 
 {
     int Q1[1024]={0,1,2,4,8,16,32,3,5,64,9,6,17,10,18,128,12,33,65,20,256,34,24,36,7,129,66,512,11,40,68,130,
@@ -37,61 +37,6 @@ int main()
 971,890,509,949,973,1000,892,950,863,759,1008,510,979,953,763,974,954,879,981,982,927,995,765,956,887,985,997,986,943,891,998,766,
 511,988,1001,951,1002,893,975,894,1009,955,1004,1010,957,983,958,987,1012,999,1016,767,989,1003,990,1005,959,1011,1013,895,1006,1014,1017,1018,
 991,1020,1007,1015,1019,1021,1022,1023};
-int i=0,k,j;
-int K=4,N=8,flag=0;
-int Q[N];
-for(j=0;j<1024;j++)
-{
-    if(Q1[j]<N)
-    {
-        Q[i]=Q1[j];
-        i++;
-    }
-}
-for(j=0;j<N;j++)
-{
-    printf(" %d ",Q[j]);
-}
-printf("\n");
-int m[K];
-for(i=0;i<K;i++)
-{
-    printf("enter");
-    scanf("%d",&m[i]);
-}
-int u[N];
-for(i=0;i<N;i++)
-{
-    u[i]=0;
-}
-for(j=0;j<K;j++)
-{
-    u[Q[N-K+j]]=m[j];
-}
-printf("\n");
-for(i=0;i<N;i++)
-{
-    printf("%d",u[i]);
-}
-int d=polar(m);
-printf("%d",d);
-    return 0;
-}
-
-int polar(int *msg)
-{
-int c;
-c=sizeof(msg)/sizeof(msg[0]);
-return c;
-
-}
-// matrix generation
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-#include<math.h>
-
-/* A(m*n) * B(p*q) */
 char** kron(char **a, int m, int n, char **b, int p, int q) 
 {
     char **matrix;
@@ -112,19 +57,51 @@ char** kronPow(char **a, int m, int n, int x)
     else
         return kron(a, m, n, kronPow(a, m, n, x - 1), m * pow((float)2,(x - 2)), n * pow((float)2,(x - 2)));
 }
-/* Print Matrix */
-void printMatrix(char**a, int m, int n) {
-    int i,j;
- for (i = 0; i < m; i++) {
-        for (j = 0; j < n ; j++) {
-            printf("%3d",a[i][j]);
-        }
-        printf("\n");
+
+int i=0,k,j;
+int K,N,flag=0;
+printf("Enter the no of message bits : ");
+scanf("%d",&K);
+printf("Enter the no of bits to be coded (N>K) and N should be in 2^n :");
+scanf("%d",&N);
+int Q[N];
+for(j=0;j<1024;j++)
+{
+    if(Q1[j]<N)
+    {
+        Q[i]=Q1[j];
+        i++;
     }
-    printf("\n");
 }
-void main() {
-    char **matrix;
+printf("The reliability sequence according to N is :");
+for(j=0;j<N;j++)
+{
+    printf(" %d ",Q[j]);
+}
+printf("\n");
+int m[K];
+
+for(i=0;i<K;i++)
+{
+    printf("Enter the information :");
+    scanf("%d",&m[i]);
+}
+int u[N];
+for(i=0;i<N;i++)
+{
+    u[i]=0;
+}
+for(j=0;j<K;j++)
+{
+    u[Q[N-K+j]]=m[j];
+}
+printf("\n");
+printf("The manipulated message signal is :");
+for(i=0;i<N;i++)
+{
+    printf("%d",u[i]);
+}
+char **matrix;
     matrix = (char**) malloc(sizeof(char*) * 2);
     matrix[0] = (char*) malloc(sizeof(char) * 2);
     matrix[1] = (char*) malloc(sizeof(char) * 2);
@@ -132,26 +109,44 @@ void main() {
     matrix[0][1] = 0;
     matrix[1][0] = 1;
     matrix[1][1] = 1;
+int polar[N][N];
  matrix = kronPow(matrix, 2, 2, 10);
- int i,j,m=8,n=8;
- for (i = 0; i < m; i++) 
+ int i1,j1,m1=8,n1=8,k1;
+ for (i1 = 0; i1 < N; i1++) 
  {
-        for (j = 0; j < n ; j++) 
+        for (j1 = 0; j1 < N ; j1++) 
         {
-            printf("%3d",matrix[i][j]);
+            polar[i1][j1]=matrix[i1][j1];
         }
         printf("\n");
     }
- free(matrix);
-//	system("pause");
+printf("The generator matrix of the coded signal of size %d is :\n",N);
+ for (i1 = 0; i1 < N; i1++) 
+ {
+        for (j1 = 0; j1 < N ; j1++) 
+        {
+            printf("%d",polar[i1][j1]);
+        }
+        printf("\n");
+}
+int result[N];
+
+
+for (i = 0; i < 1; i++) {
+            for (j = 0; j < N; j++) {
+                result[j] = 0;
+                for (k = 0; k < N; k++) {
+                    result[j] = result[j] ^ (u[k] * polar[k][j]);
+                }
+            }
+        }
+        printf("\n");
+printf("The polar encoded signal is given as : \n");
+for(i=0;i<N;i++)
+{
+    printf("%d",result[i]);
 }
 
-
-
-
-
-
-
-
-
-
+  free(matrix);
+    return 0;
+}
