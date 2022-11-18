@@ -72,6 +72,7 @@ printf("Enter the no of message bits : ");
 scanf("%d",&K);
 printf("Enter the no of bits to be coded (N>K) and N should be in 2^n :");
 scanf("%d",&N);
+int n12=log2(N);
 int Q[N];
 for(j=0;j<1024;j++)
 {
@@ -118,7 +119,7 @@ char **matrix;
     matrix[1][0] = 1;
     matrix[1][1] = 1;
 int polar[N][N];
- matrix = kronPow(matrix, 2, 2, 10);
+ matrix = kronPow(matrix, 2, 2, n12);
  int i1,j1,m1=8,n1=8,k1;
  for (i1 = 0; i1 < N; i1++) 
  {
