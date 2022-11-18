@@ -118,7 +118,7 @@ char **matrix;
     matrix[1][0] = 1;
     matrix[1][1] = 1;
 int polar[N][N];
- matrix = kronPow(matrix, 2, 2, 10);
+ matrix = kronPow(matrix, 2, 2, N);
  int i1,j1,m1=8,n1=8,k1;
  for (i1 = 0; i1 < N; i1++) 
  {
