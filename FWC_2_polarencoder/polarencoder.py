@@ -1,6 +1,7 @@
 import numpy as np
 from functools import reduce
 from operator import xor
+import math
 
 
 
@@ -36,7 +37,7 @@ Q1=[0,1,2,4,8,16,32,3,5,64,9,6,17,10,18,128,12,33,65,20,256,34,24,36,7,129,66,51
 972,761,877,952,495,703,935,978,883,762,503,925,878,735,993,885,939,994,980,926,764,941,967,886,831,947,507,889,984,751,942,996,
 971,890,509,949,973,1000,892,950,863,759,1008,510,979,953,763,974,954,879,981,982,927,995,765,956,887,985,997,986,943,891,998,766,
 511,988,1001,951,1002,893,975,894,1009,955,1004,1010,957,983,958,987,1012,999,1016,767,989,1003,990,1005,959,1011,1013,895,1006,1014,1017,1018,
-991,1020,1007,1015,1019,1021,1022,1023]
+991,120,1007,1015,1019,1021,1022,1023]
 
 
 
@@ -80,25 +81,28 @@ for i in range(N):
 for j in range(0,len(msg)):
     u[Q[N-K+j]] = msg[j]
 print("The frozen data of message is : {}".format(u))
+
+
+
+A=([1,0],[1,1]) #kron matrix
+print("The generator matrix for the coded signal is:")
 print()
 
-
-#recursive function for polar transform 
-
-
-def polar_transform(u_message):
-    u_message = np.array(u_message)
-    if len(u_message) == 1:
-        x_message = u_message
-    else:
-        u1u2 = u_message[::2] ^ u_message[1::2]
-        u2 = u_message[1::2]
-        x_message = np.concatenate([polar_transform(u1u2), polar_transform(u2)])
-    return x_message
+x=int(math.log(N,2))
+c=[]
+c=A
+for i in range(0,x-1):
+    c=np.kron(c,A)
+c=np.array(c)
+print(c)
 
 
-s1=polar_transform(u)
-print("The polar encoded signal is give as: {}".format(s1))
-
-
-
+result = [None]*N
+for i in range(0,1):
+    for j in range(0,N):
+        result[j]=0
+        for k in range(0,N):
+            result[j]=result[j]^(u[k]*c[k][j])
+print("The polar encoded signal is :")
+print()
+print(result)
