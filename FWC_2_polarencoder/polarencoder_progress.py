@@ -129,8 +129,8 @@ F=Q[0:N-K]
 print("Frozen positions : {}".format(F))
 
 
-L = np.zeros([n,N],dtype = int) #beliefs
-ucap = np.zeros([n,N],dtype=int) #decisions
+L = np.zeros([n+1,N],dtype = int) #beliefs
+ucap = np.zeros([n+1,N],dtype=int) #decisions
 ns = np.zeros([1,2*N],dtype=int); #state of node
 print(ns)
 
@@ -158,13 +158,13 @@ while(done==0):
     if depth==n:
         for i in range(0,len(F)):
             if np.any(F[i]==node):
-                ucap[n-1][node]=0
+                ucap[n][node]=0
                 break
             else:
-                if L[n-1][node]>=0:
-                    ucap[n-1][node]=0
+                if L[n][node]>=0:
+                    ucap[n][node]=0
                 else:
-                    ucap[n-1][node]=1
+                    ucap[n][node]=1
             if(node==N-1):
                 done=1
             else:
