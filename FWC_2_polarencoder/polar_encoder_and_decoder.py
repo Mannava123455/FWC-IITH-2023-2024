@@ -274,7 +274,26 @@ while(done==0):
 #print("final ucap is {}".format(ucap))
 #print("final L is {}".format(L))
 #print("final ns is {}".format(ns))
+#final_result=[]
+#print("final depth is :{}".format(depth))
+#final_result=ucap[n,Q[N-K:]]
+#print("The decoded message signal is {}".format(final_result))
+print("final ucap is {}".format(ucap))
+#print("final L is {}".format(L))
+#print("final ns is {}".format(ns))
 final_result=[]
 #print("final depth is :{}".format(depth))
 final_result=ucap[n,Q[N-K:]]
-print("The decoded message signal is {}".format(final_result))
+dec=ucap[n,0:]
+print(ucap[n,0:])
+print(len(ucap[n,0:]))
+result=[]
+for i in range(0,N):
+    ele=dec[Q[i]]
+    result.append(ele)
+
+
+
+res=result[N-K:]
+print(res)
+print("The decoded signal is {}".format(res))
