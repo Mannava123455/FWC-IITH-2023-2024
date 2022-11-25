@@ -1,7 +1,3 @@
-#This code is for polar encoder and successive cancelation decoder in lossless channel
-#The algorithm for this code is reffered from the nptel lectures
-
-
 import numpy as np
 import math
 
@@ -70,7 +66,7 @@ msg=[]
 
 for i in range(K):
     #ele=int(input('Enter data bits of size K : '))
-    ele=int(input("enter the message : "))
+    ele=1
     msg.append(ele)
 u=[]
 
@@ -271,13 +267,6 @@ while(done==0):
     flag=0
  
         #something
-#print("final ucap is {}".format(ucap))
-#print("final L is {}".format(L))
-#print("final ns is {}".format(ns))
-#final_result=[]
-#print("final depth is :{}".format(depth))
-#final_result=ucap[n,Q[N-K:]]
-#print("The decoded message signal is {}".format(final_result))
 print("final ucap is {}".format(ucap))
 #print("final L is {}".format(L))
 #print("final ns is {}".format(ns))
@@ -297,3 +286,4 @@ for i in range(0,N):
 res=result[N-K:]
 print(res)
 print("The decoded signal is {}".format(res))
+print(len(res))
