@@ -1,3 +1,7 @@
+#This code is for polar encoder and successive cancelation decoder in lossless channel
+#The algorithm for this code is reffered from the nptel lectures
+
+
 import numpy as np
 import math
 
