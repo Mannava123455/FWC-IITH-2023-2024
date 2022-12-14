@@ -15,10 +15,10 @@ while(1)
 
 d = (PIND & (1 << PIND5)) == (1 << PIND5);
 c = (PIND & (1 << PIND4)) == (1 << PIND4);
-b = (PIND & (1 << PIND3)) == (1 << PIND3);
+b = (PIND & (1 << PIND3)) == (1 << PIND3);        //digital read
 a = (PIND & (1 << PIND2)) == (1 << PIND2);
 f = ((c|(!d))&b)|(!a);
-PORTB |= (f<< 5);
+PORTB |= (f<< 5);   //digital write
 }
 return 0;
 }
