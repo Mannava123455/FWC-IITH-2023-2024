@@ -1,4 +1,4 @@
-#include<Arduino.h>
+
 #include<malloc.h>
 #include<stdlib.h>
 #include<string.h>
@@ -36,39 +36,24 @@ int Q1[1024] = {0, 1, 2, 4, 8, 16, 32, 3, 5, 64, 9, 6, 17, 10, 18, 128, 12, 33, 
                 511, 988, 1001, 951, 1002, 893, 975, 894, 1009, 955, 1004, 1010, 957, 983, 958, 987, 1012, 999, 1016, 767, 989, 1003, 990, 1005, 959, 1011, 1013, 895, 1006, 1014, 1017, 1018,
                 991, 1020, 1007, 1015, 1019, 1021, 1022, 1023
                };
+               
 
-int K = 8, N = 64;
-bool m[100];
-bool u[1024];
-
-char** kron(char **a, int m, int n, char **b, int p, int q)
-{
-  char **matrix;
-  int i, j;
-  matrix = (char**) malloc(sizeof(char*) * m * p);
-  for (i = 0; i < m * p; i++) {
-    matrix[i] = (char*) malloc(sizeof(char) * n * q);
-    for (j = 0; j < n * q; j++)
-    {
-      matrix[i][j] = a[i / p][j / q] * b[i % p][j % q];
-    }
-  }
-  return matrix;
-}
-char** kronPow(char **a, int m, int n, int x)
-{
-  if (x == 1)
-    return a;
-  else
-    return kron(a, m, n, kronPow(a, m, n, x - 1), m * pow((float)2, (x - 2)), n * pow((float)2, (x - 2)));
-}
-
-
-
+int K=200; 
+int N=1024;
+int m[1024];
+int u[1024];
+int m1=1;
+int d;
+int a[1024];
+int b[1024];
+int ress[1024];
+int conc[1024];
+int l;
+int index1;
+int index2;
+int index3;
 void setup()
 {
-
-
   Serial.begin(115200);
   int i = 0, k, j;
   int Q[N];
@@ -120,60 +105,60 @@ void setup()
     Serial.print(u[j] );
   }
 
-  char **matrix;
-  matrix = (char**) malloc(sizeof(char*) * 2);
-  matrix[0] = (char*) malloc(sizeof(char) * 2);
-  matrix[1] = (char*) malloc(sizeof(char) * 2);
-  matrix[0][0] = 1;
-  matrix[0][1] = 0;
-  matrix[1][0] = 1;
-  matrix[1][1] = 1;
-  bool polar[N][N];
-  matrix = kronPow(matrix, 2, 2, n12);
-  int i1, j1, k1;
-  for (i1 = 0; i1 < N; i1++)
+  
+
+  for(d=n12-1;d>=0;d--)
+{
+  for(i=0;i<N;i=i+2*m1)
   {
-    for (j1 = 0; j1 < N ; j1++)
+   
+    l=0;
+    for(k=i;k<i+m1;k++)
     {
-      polar[i1][j1] = matrix[i1][j1];
+      a[l]=u[k];
+      l++;
     }
-  }
-  free(matrix);
-  Serial.println("   ");
-  for (i1 = 0; i1 < N; i1++)
-  {
-    for (j1 = 0; j1 < N; j1++)
+    index1=0;
+    for(k=i+m1;k<i+2*m1;k++)
     {
-
-      Serial.print(polar[i1][j1]);
+      b[index1]=u[k];
+      index1++;
     }
-    Serial.println("   ");
-
-  }
-  bool result[N];
-  for (i = 0; i < 1; i++) {
-    for (j = 0; j < N; j++) {
-      result[j] = 0;
-      for (k = 0; k < N; k++) {
-        result[j] = result[j] ^ (u[k] * polar[k][j]);
-      }
+    
+    for(k=0;k<m1;k++)
+    {
+      ress[k]=a[k]^b[k];
+    }
+    index2=0;
+    for(k=0;k<m1;k++)
+    {
+      conc[index2]=ress[k];
+      index2++;
+    }
+    for(k=0;k<m1;k++)
+    {
+      conc[index2]=b[k];
+      index2++;
+    }
+    index3=0;
+    for(k=i;k<i+2*m1;k++)
+    {
+      u[k]=conc[index3];
+      index3++;
     }
   }
+  m1=m1*2;
+}
 
+Serial.println(" ");
   Serial.print("The polar encoded signal is :");
-
+Serial.println(" ");
   int h;
   for (h = 0; h < N; h++)
   {
-    Serial.print(result[h]);
+    Serial.print(conc[h]);
   }
   Serial.println(" ");
-  for (h = 0; h < N; h++)
-
-
-  {
-    Serial.print(1 - 2 * (result[h]));
-  }
 }
 
 void loop()
