@@ -139,7 +139,7 @@ plt.grid() # minor
 plt.axis('equal')
 
 #if using termux
-plt.savefig('/sdcard/Linearalgebra/p.pdf')
+#plt.savefig('/sdcard/Linearalgebra/p.pdf')
 #subprocess.run(shlex.split("termux-open /storage/emulated/0/github/cbse-papers/2020/math/12/solutions/figs/matrix-12-15.pdf"))
 #else
-#plt.show()
+plt.show()

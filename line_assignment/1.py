@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from numpy import linalg as LA
 import subprocess
 import shlex
+
+
+
 def line_gen(A,B):
    len =10
    dim = A.shape[0]
@@ -17,9 +20,11 @@ def line_gen(A,B):
 
 def dir_vec(A,B):
    return B-A
+
 def norm_vec(A,B):
    return np.matmul(omat, dir_vec(A,B))
 #Given points
+
 A = np.array(([0,0]))
 B = np.array(([4,0]))
 d=int(input('Enter the length of one side of paralelogram: '))  #length of one side in parallelogram
@@ -77,7 +82,7 @@ plt.grid() # minor
 plt.axis('equal')
 plt.title('parallelogram')
 #if using termux
-plt.savefig('/sdcard/Linearalgebra/par.pdf')
+plt.savefig('/home/mannava/module1/Mannava-Venkatasai/line_assignment/par.pdf')
 #subprocess.run(shlex.split("termux-open '/storage/emulated/0/github/cbse-papers/2020/math/10/solutions/figs/matrix-10-2.pdf'")) 
 #else
-#plt.show()
+plt.show()
