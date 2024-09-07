@@ -1,0 +1,4 @@
+Running: xsim.dir/polar_tb1_behav/xsimk.exe -simmode gui -wdb polar_tb1_behav.wdb -simrunnum 0 -socket 58222
+Design successfully loaded
+Design Loading Memory Usage: 8604 KB (Peak: 8604 KB)
+Design Loading CPU Usage: 30 ms
